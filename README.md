@@ -1,4 +1,4 @@
-# Devcamp Portfolio Application Test
+# Devcamp Portfolio Application
 
 > This is a ruby on rails application that allow users to create their own portfolio
 
