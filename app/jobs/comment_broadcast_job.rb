@@ -7,7 +7,7 @@ class CommentBroadcastJob < ApplicationJob
 
   private
 
-  def render_comment Comment
-    CommentsController.render partial: 'comments/comment' locals: { comment: comment }
+  def render_comment comment
+    CommentsController.render partial: 'comments/comment', locals: { comment: comment }
   end
 end
