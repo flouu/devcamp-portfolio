@@ -3,8 +3,6 @@ class BlogsController < ApplicationController
   layout "blog"
   access all: [:show, :index], user: {except: [:destroy, :new, :create, :update, :edit, :toggle_status]}, site_admin: :all
 
-  # GET /blogs
-  # GET /blogs.json
   def index
     if logged_in?(:site_admin)
       @blogs = Blog.recent.page(params[:page]).per(5)
@@ -15,8 +13,6 @@ class BlogsController < ApplicationController
     @page_title = 'My Portfolio Blog'
   end
 
-  # GET /blogs/1
-  # GET /blogs/1.json
   def show
     if logged_in?(:site_admin) || @blog.published?
       @blog = Blog.includes(:comments).friendly.find(params[:id])
@@ -28,16 +24,13 @@ class BlogsController < ApplicationController
     end
   end
 
-  # GET /blogs/new
   def new
     @blog = Blog.new
   end
 
-  # GET /blogs/1/edit
   def edit
   end
 
-  # POST /blogs
   def create
     @blog = Blog.new(blog_params)
 
@@ -50,7 +43,6 @@ class BlogsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /blogs/1
   def update
     respond_to do |format|
       if @blog.update(blog_params)
@@ -61,7 +53,6 @@ class BlogsController < ApplicationController
     end
   end
 
-  # DELETE /blogs/1
   def destroy
     @blog.destroy
     respond_to do |format|
@@ -80,13 +71,11 @@ class BlogsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_blog
       @blog = Blog.friendly.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:title, :body)
+      params.require(:blog).permit(:title, :body, :topic_id)
     end
 end
